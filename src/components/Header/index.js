@@ -4,7 +4,7 @@ import "./index.scss";
 const Header = () => {
   return (
     <header className="header">
-      <span>Lotto Service</span>
+      <span className="header__title">Lotto Service</span>
     </header>
   );
 };
