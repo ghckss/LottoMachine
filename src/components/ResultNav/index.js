@@ -1,27 +1,23 @@
 import React from "react";
+import Ball from "../common/Ball";
 import "./index.scss";
 
-const LottoInput = () => {
-  const ballStyle = {
-    width: "30px",
-    height: "30px",
-    borderRadius: "50%",
-    border: "1px solid black",
-  };
-  const ball = <div className="circle" style={ballStyle}></div>;
+const ResultNav = ({ results }) => {
+  const resultBalls = results.map((result, index) => {
+    return (
+      <div key={index} className="result__row">
+        {result.map((number) => (
+          <Ball key={number} number={number} size="30" />
+        ))}
+      </div>
+    );
+  });
   return (
     <nav className="result">
       <div className="result__title">RESULT LIST</div>
-      <div className="result__row">
-        {ball}
-        {ball}
-        {ball}
-        {ball}
-        {ball}
-        {ball}
-      </div>
+      {resultBalls}
     </nav>
   );
 };
 
-export default LottoInput;
+export default ResultNav;

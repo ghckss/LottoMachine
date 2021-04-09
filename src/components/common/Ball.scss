@@ -1,0 +1,13 @@
+.ball {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+  border: 1px solid black;
+  p {
+    width: 100%;
+    text-align: center;
+    margin-top: 19px;
+  }
+}
