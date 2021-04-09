@@ -1,0 +1,16 @@
+.result {
+  width: 30%;
+  overflow: scroll;
+  &__title {
+    margin: 10px;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+  }
+  &__row {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

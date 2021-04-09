@@ -1,4 +1,5 @@
 import { Header, LottoInput, LottoMachine, ResultNav } from "./components";
+import "./App.scss";
 
 function App() {
   return (
