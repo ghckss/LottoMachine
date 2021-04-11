@@ -15,15 +15,19 @@ const Ball = ({ number, size }) => {
     color = "#5ab545";
   }
 
-  const style = {
+  const ballStyle = {
     width: `${size}px`,
     height: `${size}px`,
     background: `radial-gradient(circle at 25% 5%, #ffffff, ${color}, #ffffff)`,
   };
 
   return (
-    <div className="ball" style={style}>
-      <div>{number}</div>
+    <div className="ball" style={ballStyle}>
+      {number ? (
+        <div>{number}</div>
+      ) : (
+        <input type="text" style={{ width: `${size - 10}px` }} />
+      )}
     </div>
   );
 };
