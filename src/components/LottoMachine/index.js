@@ -2,8 +2,18 @@ import React from "react";
 import Canvas from "./LottoMachineCanvas/Canvas";
 import "./index.scss";
 
-const LottoMachine = () => {
+const LottoMachine = ({ setResults }) => {
   const [active, setActive] = React.useState(false);
+
+  const makeResult = () => {
+    const numbers = [];
+    for (let i = 0; i < 6; i++) {
+      const randNumber = Math.floor(Math.random() * (45 - 1 + 1)) + 1;
+      if (numbers.indexOf(randNumber) === -1) numbers.push(randNumber);
+      else i -= 1;
+    }
+    setResults(numbers);
+  };
 
   return (
     <div className="lotto">
@@ -14,6 +24,7 @@ const LottoMachine = () => {
         <button
           onClick={() => {
             setActive(!active);
+            if (active) makeResult();
           }}
         >
           {active ? "중지" : "실행"}
