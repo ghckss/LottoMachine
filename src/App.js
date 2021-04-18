@@ -6,8 +6,8 @@ const App = () => {
   const [results, setResults] = React.useState([]);
   const appendResult = (result) => {
     const newResults = [...results];
+    result.sort((a, b) => a - b);
     newResults.push(result);
-    result.sort();
     setResults(newResults);
   };
   return (
