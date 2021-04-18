@@ -10,7 +10,10 @@
   &__row {
     margin: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    .ball {
+      margin: 0 8px;
+    }
   }
 }
