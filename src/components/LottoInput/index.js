@@ -2,8 +2,7 @@ import React from "react";
 import Ball from "../common/Ball";
 import "./index.scss";
 
-const LottoInput = () => {
-  const [values, setValues] = React.useState(["", "", "", "", "", ""]);
+const LottoInput = ({ values, setValues }) => {
   const [duplicateIndexList, setDuplicateIndexList] = React.useState([]);
 
   React.useEffect(() => {
@@ -17,7 +16,7 @@ const LottoInput = () => {
   const changeBallValue = (e) => {
     const index = e.target.name;
     const newValues = [...values];
-    newValues[index] = e.target.value;
+    newValues[index] = Number(e.target.value);
 
     if (
       newValues[index] === "" ||
@@ -31,7 +30,6 @@ const LottoInput = () => {
 
   const getDuplicateIndexList = (valueList) => {
     const list = [];
-
     for (let i = 0; i < 6; i++) {
       for (let j = i; j < 6; j++) {
         if (
@@ -53,6 +51,7 @@ const LottoInput = () => {
   const createBalls = () => {
     const size = 50;
     const balls = [];
+
     for (let i = 0; i < 6; i++) {
       balls.push(
         <div key={i} className="lotto-input__ball">
@@ -60,11 +59,11 @@ const LottoInput = () => {
             <input
               name={i}
               type="text"
-              value={values[i]}
+              value={values[i] || ""}
               style={{
                 width: `${size - 10}px`,
                 background: "transparent",
-                color: `${isDuplicated(i) && "red"}`,
+                color: `${isDuplicated(i) ? "red" : "black"}`,
               }}
               onChange={handleBallChange}
             />

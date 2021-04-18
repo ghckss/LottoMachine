@@ -2,17 +2,42 @@ import React from "react";
 import Canvas from "./LottoMachineCanvas/Canvas";
 import "./index.scss";
 
-const LottoMachine = ({ setResults }) => {
+const LottoMachine = ({ values, setValues, setResults }) => {
   const [active, setActive] = React.useState(false);
 
+  const pushRandomNumber = (numbers) => {
+    const randNumber = Math.floor(Math.random() * (45 - 1 + 1)) + 1;
+    if (numbers.indexOf(randNumber) === -1) numbers.push(randNumber);
+    else pushRandomNumber(numbers);
+    return numbers;
+  };
+
   const makeResult = () => {
-    const numbers = [];
-    for (let i = 0; i < 6; i++) {
-      const randNumber = Math.floor(Math.random() * (45 - 1 + 1)) + 1;
-      if (numbers.indexOf(randNumber) === -1) numbers.push(randNumber);
-      else i -= 1;
+    setActive(true);
+
+    const numbers = [...values.filter((value) => value !== "")];
+
+    const promises = [];
+    const loopCount = 6 - numbers.length;
+    for (let i = 0; i < loopCount; i++) {
+      promises.push(setEachValue(i, numbers));
     }
-    setResults(numbers);
+
+    Promise.all(promises).then(() => {
+      setValues(["", "", "", "", "", ""]);
+      setResults(numbers);
+      setActive(false);
+    });
+  };
+
+  const setEachValue = (index, numbers) => {
+    return new Promise(function (resolve, reject) {
+      setTimeout(() => {
+        pushRandomNumber(numbers);
+        setValues([...numbers]);
+        resolve();
+      }, index * 500);
+    });
   };
 
   return (
@@ -22,12 +47,12 @@ const LottoMachine = ({ setResults }) => {
       </div>
       <div className="lotto__button">
         <button
+          style={{ display: `${active ? "none" : "block"}` }}
           onClick={() => {
-            setActive(!active);
-            if (active) makeResult();
+            makeResult();
           }}
         >
-          {active ? "중지" : "실행"}
+          실행
         </button>
       </div>
     </div>

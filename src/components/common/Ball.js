@@ -21,7 +21,7 @@ const Ball = ({ children, number, size, warning }) => {
     width: `${size}px`,
     height: `${size}px`,
     background: `radial-gradient(circle at 25% 5%, #ffffff, ${color}, #ffffff)`,
-    border: `${warning && "1px solid red"}`,
+    borderColor: `${warning ? "red" : "black"}`,
   };
 
   return (
