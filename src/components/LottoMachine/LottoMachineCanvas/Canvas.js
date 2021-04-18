@@ -3,8 +3,14 @@ import React from "react";
 import { Ball } from "./ball";
 import { Machine } from "./machine.js";
 
-const Canvas = (props) => {
+const Canvas = ({ active }) => {
   const canvasRef = React.useRef(null);
+
+  const resize = (canvas, context, stageWidth, stageHeight) => {
+    canvas.width = stageWidth * 2;
+    canvas.height = stageHeight * 2;
+    context.scale(2, 2);
+  };
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -14,6 +20,19 @@ const Canvas = (props) => {
       .clientWidth;
     const stageHeight = document.body.querySelector(".lotto__machine")
       .clientHeight;
+
+    const animate = (context, machine, balls, stageWidth, stageHeight) => {
+      window.requestAnimationFrame(() =>
+        animate(context, machine, balls, stageWidth, stageHeight)
+      );
+
+      context.clearRect(0, 0, stageWidth, stageHeight);
+      machine.draw(context);
+
+      balls.forEach((ball) => {
+        ball.draw(context, machine, active);
+      });
+    };
 
     window.addEventListener(
       "resize",
@@ -28,7 +47,7 @@ const Canvas = (props) => {
     window.requestAnimationFrame(() =>
       animate(context, machine, balls, stageWidth, stageHeight)
     );
-  }, [props.active]);
+  }, [active]);
 
   const createBall = (machine) => {
     const balls = [];
@@ -56,26 +75,7 @@ const Canvas = (props) => {
     return new Machine(stageWidth, stageHeight, 200);
   };
 
-  const resize = (canvas, context, stageWidth, stageHeight) => {
-    canvas.width = stageWidth * 2;
-    canvas.height = stageHeight * 2;
-    context.scale(2, 2);
-  };
-
-  const animate = (context, machine, balls, stageWidth, stageHeight) => {
-    window.requestAnimationFrame(() =>
-      animate(context, machine, balls, stageWidth, stageHeight)
-    );
-
-    context.clearRect(0, 0, stageWidth, stageHeight);
-    machine.draw(context);
-
-    balls.forEach((ball) => {
-      ball.draw(context, machine, props.active);
-    });
-  };
-
-  return <canvas ref={canvasRef} {...props} />;
+  return <canvas ref={canvasRef} />;
 };
 
 export default Canvas;

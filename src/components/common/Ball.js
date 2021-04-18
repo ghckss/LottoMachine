@@ -1,9 +1,11 @@
 import React from "react";
 import "./Ball.scss";
 
-const Ball = ({ number, size }) => {
+const Ball = ({ children, number, size, warning }) => {
   let color = "";
-  if (number <= 10) {
+  if (!number) {
+    color = "#eeeeee";
+  } else if (number <= 10) {
     color = "#e4a716";
   } else if (number <= 20) {
     color = "#1993da";
@@ -19,15 +21,12 @@ const Ball = ({ number, size }) => {
     width: `${size}px`,
     height: `${size}px`,
     background: `radial-gradient(circle at 25% 5%, #ffffff, ${color}, #ffffff)`,
+    border: `${warning && "1px solid red"}`,
   };
 
   return (
     <div className="ball" style={ballStyle}>
-      {number ? (
-        <div>{number}</div>
-      ) : (
-        <input type="text" style={{ width: `${size - 10}px` }} />
-      )}
+      {children}
     </div>
   );
 };

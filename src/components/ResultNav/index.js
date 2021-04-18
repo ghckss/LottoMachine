@@ -7,7 +7,9 @@ const ResultNav = ({ results }) => {
     return (
       <div key={index} className="result__row">
         {result.map((number) => (
-          <Ball key={`${index}-${number}`} number={number} size="30" />
+          <Ball key={`${index}-${number}`} number={number} size="30">
+            <div>{number}</div>
+          </Ball>
         ))}
       </div>
     );

@@ -1,7 +1,7 @@
 .lotto-input {
   position: absolute;
   bottom: 0;
-  height: 60px;
+  height: 90px;
   width: 100%;
 
   display: flex;
@@ -9,4 +9,14 @@
   align-items: center;
 
   border-top: 1px solid black;
+  &__ball {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  &--error {
+    color: red;
+  }
 }
