@@ -2,3 +2,17 @@
   display: flex;
   height: 80%;
 }
+
+@keyframes ball {
+  100% {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.lotto-input.move {
+  animation: container 0.7s ease-in;
+  .ball {
+    animation: ball 0.7s ease-in;
+  }
+}

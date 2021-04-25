@@ -2,7 +2,12 @@ import React from "react";
 import Canvas from "./LottoMachineCanvas/Canvas";
 import "./index.scss";
 
-const LottoMachine = ({ values, setValues, setResults }) => {
+const LottoMachine = ({
+  values,
+  setValues,
+  setResults,
+  setAnimationActive,
+}) => {
   const [active, setActive] = React.useState(false);
 
   const pushRandomNumber = (numbers) => {
@@ -24,9 +29,13 @@ const LottoMachine = ({ values, setValues, setResults }) => {
     }
 
     Promise.all(promises).then(() => {
-      setValues(["", "", "", "", "", ""]);
-      setResults(numbers);
       setActive(false);
+      setAnimationActive(true);
+      setTimeout(() => {
+        setValues(["", "", "", "", "", ""]);
+        setResults(numbers);
+        setAnimationActive(false);
+      }, 500);
     });
   };
 
@@ -36,7 +45,7 @@ const LottoMachine = ({ values, setValues, setResults }) => {
         pushRandomNumber(numbers);
         setValues([...numbers]);
         resolve();
-      }, index * 500);
+      }, index * 400);
     });
   };
 

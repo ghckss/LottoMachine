@@ -2,7 +2,7 @@ import React from "react";
 import Ball from "../common/Ball";
 import "./index.scss";
 
-const LottoInput = ({ values, setValues }) => {
+const LottoInput = ({ values, isAnimationActive, setValues }) => {
   const [duplicateIndexList, setDuplicateIndexList] = React.useState([]);
 
   React.useEffect(() => {
@@ -48,6 +48,18 @@ const LottoInput = ({ values, setValues }) => {
     return list;
   };
 
+  const showFakeBalls = () => {
+    const balls = [];
+    for (let i = 0; i < 6; i++) {
+      balls.push(
+        <div key={`fake-${i}`} className="lotto-input__ball">
+          <Ball number="" size="50"></Ball>
+        </div>
+      );
+    }
+    return balls;
+  };
+
   const createBalls = () => {
     const size = 50;
     const balls = [];
@@ -81,7 +93,14 @@ const LottoInput = ({ values, setValues }) => {
     return duplicateIndexList.indexOf(index) !== -1;
   };
 
-  return <div className="lotto-input">{createBalls()}</div>;
+  return (
+    <>
+      <div className="lotto-input">{showFakeBalls()}</div>
+      <div className={`lotto-input ${isAnimationActive ? "move" : ""}`}>
+        {createBalls()}
+      </div>
+    </>
+  );
 };
 
 export default LottoInput;
